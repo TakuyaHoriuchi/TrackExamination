@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import recipesystem.application.payload.PayloadRecipe;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.application.payload.ResponseRecipeList;
 import recipesystem.domain.model.Recipe;
-import recipesystem.domain.service.RecipeService;
+import recipesystem.domain.service.ReadRecipeService;
 
 /**
  * レシピ情報を取得するクラス.
@@ -24,7 +25,7 @@ import recipesystem.domain.service.RecipeService;
 @RequestMapping(value = "recipes")
 public class ReadRecipeController {
   @Autowired
-  private RecipeService recipeService;
+  private ReadRecipeService recipeService;
 
   /**
    * 指定したIDのレシピを取得するメソッド.
@@ -50,6 +51,16 @@ public class ReadRecipeController {
     responseRecipe.setIngredients(readRecipe.getIngredients());
     responseRecipe.setCost(readRecipe.getCost().toString()); 
     response.setRecipe(recipeList);
+    return response;
+  }
+
+  public ResponseRecipeList readRecipe() {
+    ResponseRecipeList response = new ResponseRecipeList();
+    List<PayloadRecipe> recipeList = new ArrayList<>();
+    recipeList.add(new PayloadRecipe(Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス",        "1000"));
+    recipeList.add(new PayloadRecipe(Long.valueOf(2), "オムライス",   "30分", "2人", "玉ねぎ,卵,スパイス,醤油",    "700"));
+    recipeList.add(new PayloadRecipe(Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450"));
+    response.setRecipes(recipeList);
     return response;
   }
 
