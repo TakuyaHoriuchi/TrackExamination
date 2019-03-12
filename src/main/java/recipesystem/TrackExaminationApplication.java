@@ -12,7 +12,6 @@ public class TrackExaminationApplication {
 
 }
 // =============CONTROLLER===============
-// TODO Read複数件取得実装修正
 // TODO CREATEのテスト実装
 // TODO CREATEの実装修正
 // TODO UPDATEのテスト実装

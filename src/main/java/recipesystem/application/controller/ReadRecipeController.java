@@ -25,7 +25,7 @@ import recipesystem.domain.service.ReadRecipeService;
 @RequestMapping(value = "recipes")
 public class ReadRecipeController {
   @Autowired
-  private ReadRecipeService recipeService;
+  private ReadRecipeService service;
 
   /**
    * 指定したIDのレシピを取得するメソッド.
@@ -35,10 +35,21 @@ public class ReadRecipeController {
   @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
   public ResponseRecipe readRecipeFromId(@PathVariable("id") Integer id) {
-    Recipe readRecipe = recipeService.read(id);
+    Recipe readRecipe = service.read(id);
     return generateRecipeResponse(readRecipe);
   }
-
+  
+  /**
+   * 全件レシピを取得するメソッド.
+   * @return 処理結果内容.
+   */
+  @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @ResponseStatus(value = HttpStatus.OK)
+  public ResponseRecipeList readRecipe() {
+    List<Recipe> resultRecipeList = service.readAll();
+    return generateRecipeListResponse(resultRecipeList);
+  }
+  
   private ResponseRecipe generateRecipeResponse(Recipe readRecipe) {
     ResponseRecipe response = new ResponseRecipe();
     response.setMessage("Recipe details by id");
@@ -54,14 +65,25 @@ public class ReadRecipeController {
     return response;
   }
 
-  public ResponseRecipeList readRecipe() {
+  private ResponseRecipeList generateRecipeListResponse(List<Recipe> resultRecipeList) {
     ResponseRecipeList response = new ResponseRecipeList();
-    List<PayloadRecipe> recipeList = new ArrayList<>();
-    recipeList.add(new PayloadRecipe(Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス",        "1000"));
-    recipeList.add(new PayloadRecipe(Long.valueOf(2), "オムライス",   "30分", "2人", "玉ねぎ,卵,スパイス,醤油",    "700"));
-    recipeList.add(new PayloadRecipe(Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450"));
-    response.setRecipes(recipeList);
+    List<PayloadRecipe> payloadRecipeList = new ArrayList<>();
+    mapResultToPayload(resultRecipeList, payloadRecipeList);
+    response.setRecipes(payloadRecipeList);
     return response;
+  }
+  
+  private void mapResultToPayload(List<Recipe> recipeList, List<PayloadRecipe> responseRecipeList) {
+    for (Recipe recipe: recipeList) {
+      PayloadRecipe responseRecipe = new PayloadRecipe();
+      responseRecipe.setId(recipe.getId());
+      responseRecipe.setTitle(recipe.getTitle());
+      responseRecipe.setMakingTime(recipe.getMakingTime());
+      responseRecipe.setServes(recipe.getServes());
+      responseRecipe.setIngredients(recipe.getIngredients());
+      responseRecipe.setCost(recipe.getCost().toString());
+      responseRecipeList.add(responseRecipe);
+    }
   }
 
 
