@@ -4,8 +4,8 @@ import static java.util.Objects.isNull;
 
 import org.springframework.stereotype.Service;
 
-import recipesystem.FailToCreateRecipeException;
 import recipesystem.domain.model.Recipe;
+import recipesystem.exception.FailToCreateRecipeException;
 
 /**
  * {@link CreateRecipeService}の実装クラス.

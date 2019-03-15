@@ -2,7 +2,7 @@ package recipesystem.domain.service;
 
 import org.springframework.stereotype.Service;
 
-import recipesystem.RecipeNotFoundException;
+import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * {@link DeleteRecipeService}の実装クラス.

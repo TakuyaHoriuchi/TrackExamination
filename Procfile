@@ -1,0 +1,1 @@
+web: java -jar target/TrackExamination-0.0.1-SNAPSHOT.jar --server.port=$PORT

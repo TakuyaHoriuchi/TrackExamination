@@ -1,4 +1,4 @@
-package recipesystem;
+package recipesystem.exception;
 
 public class FailToCreateRecipeException extends RuntimeException {
 

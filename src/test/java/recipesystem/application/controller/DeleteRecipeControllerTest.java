@@ -12,9 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import recipesystem.RecipeNotFoundException;
 import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.domain.service.DeleteRecipeService;
+import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * {@link DeleteRecipeController}のテスト.
