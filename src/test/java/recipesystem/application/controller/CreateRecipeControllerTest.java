@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import recipesystem.FailToCreateRecipeException;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
@@ -55,6 +56,23 @@ public class CreateRecipeControllerTest {
     assertThat(actualRecipe.getServes(), is("5人"));
     assertThat(actualRecipe.getIngredients(), is("玉ねぎ, トマト, スパイス, 水"));
     assertThat(actualRecipe.getCost(), is("450"));
+  }
+  
+  @Test
+  public void test_FailToCreateRecipe() {
+    // setup
+    when(service.create(new Recipe())).thenThrow(new FailToCreateRecipeException());
+    
+    // execute
+    ResponseRecipe actual = testTarget.createRecipe(new PayloadRequestRecipe());
+    
+    // expected
+    String expectedMessage = "Recipe creation failed!";
+    String expectedRequired = "title, making_time, serves, ingredients, cost";
+    
+    // assert
+    assertThat(actual.getMessage(), is(equalTo(expectedMessage)));
+    assertThat(actual.getRequired(), is(equalTo(expectedRequired)));
   }
 
   private Recipe createSuccessRequestRecipe() {

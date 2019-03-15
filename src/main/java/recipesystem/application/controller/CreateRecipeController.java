@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import recipesystem.FailToCreateRecipeException;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
@@ -37,14 +38,19 @@ public class CreateRecipeController {
   @ResponseStatus(value = HttpStatus.OK)
   public ResponseRecipe createRecipe(@RequestBody PayloadRequestRecipe request) {
     Recipe requestRecipe = mapperRequestFromPayload(request);
-    Recipe responseRecipe = service.create(requestRecipe);
-    PayloadResponseRecipe payloadResponseRecipe = mapperPayloadFromResponse(responseRecipe);
-    
+    Recipe responseRecipe = null;
     ResponseRecipe response = new ResponseRecipe();
-    response.setMessage("Recipe successfully created!");
-    List<PayloadResponseRecipe> recipe = new ArrayList<>();
-    recipe.add(payloadResponseRecipe);
-    response.setRecipe(recipe);
+    try {
+      responseRecipe = service.create(requestRecipe);
+      PayloadResponseRecipe payloadResponseRecipe = mapperPayloadFromResponse(responseRecipe);
+      List<PayloadResponseRecipe> recipe = new ArrayList<>();
+      recipe.add(payloadResponseRecipe);
+      response.setRecipe(recipe);
+      response.setMessage("Recipe successfully created!");
+    } catch (FailToCreateRecipeException e) {
+      response.setMessage("Recipe creation failed!");
+      response.setRequired("title, making_time, serves, ingredients, cost");
+    }
     return response;
   }
 
