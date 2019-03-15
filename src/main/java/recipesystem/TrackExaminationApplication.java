@@ -11,10 +11,8 @@ public class TrackExaminationApplication {
 	}
 
 }
-// =============CONTROLLER===============
-// TODO DELETEのテスト実装
-// TODO DELETEの実装修正
-// =============CONTROLLER===============
+
+// TODO 動作を一旦確認するため、ServiceStubを作成
 // =============SERVICE===============
 // TODO 1件Readのテスト実装
 // TODO 1件Readの実装修正
