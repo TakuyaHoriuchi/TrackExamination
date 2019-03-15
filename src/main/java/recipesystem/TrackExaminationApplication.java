@@ -12,7 +12,6 @@ public class TrackExaminationApplication {
 
 }
 
-// TODO 動作を一旦確認するため、ServiceStubを作成
 // =============SERVICE===============
 // TODO 1件Readのテスト実装
 // TODO 1件Readの実装修正

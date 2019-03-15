@@ -7,14 +7,23 @@ import org.springframework.stereotype.Service;
 
 import recipesystem.domain.model.Recipe;
 
+/**
+ * {@link ReadRecipeService}の実装クラス.
+ */
 @Service
 public class ReadRecipeServiceStub implements ReadRecipeService {
 
+  /**
+   * {@inheritDoc}.
+   */
   @Override
   public Recipe read(int i) {
     return new Recipe(Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
   }
 
+  /**
+   * {@inheritDoc}.
+   */
   @Override
   public List<Recipe> readAll() {
     List<Recipe> recipeList = new ArrayList<>();
