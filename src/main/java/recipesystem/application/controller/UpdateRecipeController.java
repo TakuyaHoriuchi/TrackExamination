@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.domain.model.Recipe;
+import recipesystem.domain.service.UpdateRecipeService;
 
 /**
  * レシピ情報を更新するクラス.
@@ -21,6 +23,8 @@ import recipesystem.application.payload.ResponseRecipe;
 @RestController
 @RequestMapping(value = "recipes")
 public class UpdateRecipeController {
+
+  private UpdateRecipeService service;
 
   /**
    * 指定したIDのレシピを更新するメソッド.
@@ -32,12 +36,38 @@ public class UpdateRecipeController {
   @ResponseStatus(value = HttpStatus.OK)
   public ResponseRecipe updateRecipe(@PathVariable("id") int id,
                                      @RequestBody PayloadRequestRecipe payloadRecipe) {
-    PayloadResponseRecipe responseRecipe = new PayloadResponseRecipe(null, "トマトスープレシピ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450");
+    Recipe requestRecipe = mapperRequestFromPayload(payloadRecipe);
+    Recipe responseRecipe = service.update(2, requestRecipe);
+    PayloadResponseRecipe responsePayloadRecipe = mapperPayloadFromResponse(responseRecipe);
+    return generateResponse(responsePayloadRecipe);
+  }
+
+  private ResponseRecipe generateResponse(PayloadResponseRecipe responsePayloadRecipe) {
     ResponseRecipe response = new ResponseRecipe();
     response.setMessage("Recipe successfully updated!");
     response.setRecipe(new ArrayList<>());
-    response.getRecipe().add(responseRecipe);
+    response.getRecipe().add(responsePayloadRecipe);
     return response;
+  }
+
+  private PayloadResponseRecipe mapperPayloadFromResponse(Recipe responseRecipe) {
+    PayloadResponseRecipe result = new PayloadResponseRecipe();
+    result.setTitle(responseRecipe.getTitle());
+    result.setMakingTime(responseRecipe.getMakingTime());
+    result.setServes(responseRecipe.getServes());
+    result.setIngredients(responseRecipe.getIngredients());
+    result.setCost(responseRecipe.getCost().toString());
+    return result;
+  }
+
+  private Recipe mapperRequestFromPayload(PayloadRequestRecipe payloadRecipe) {
+    Recipe result = new Recipe();
+    result.setTitle(payloadRecipe.getTitle());
+    result.setMakingTime(payloadRecipe.getMakingTime());
+    result.setServes(payloadRecipe.getServes());
+    result.setIngredients(payloadRecipe.getIngredients());
+    result.setCost(payloadRecipe.getCost());
+    return result;
   }
 
 }
