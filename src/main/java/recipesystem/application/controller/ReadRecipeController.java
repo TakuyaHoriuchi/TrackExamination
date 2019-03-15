@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import recipesystem.application.payload.PayloadRecipe;
+import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.application.payload.ResponseRecipeList;
 import recipesystem.domain.model.Recipe;
@@ -53,8 +53,8 @@ public class ReadRecipeController {
   private ResponseRecipe generateRecipeResponse(Recipe readRecipe) {
     ResponseRecipe response = new ResponseRecipe();
     response.setMessage("Recipe details by id");
-    List<PayloadRecipe> recipeList = new ArrayList<>();
-    PayloadRecipe responseRecipe = new PayloadRecipe();
+    List<PayloadResponseRecipe> recipeList = new ArrayList<>();
+    PayloadResponseRecipe responseRecipe = new PayloadResponseRecipe();
     recipeList.add(responseRecipe);
     responseRecipe.setTitle(readRecipe.getTitle());
     responseRecipe.setMakingTime(readRecipe.getMakingTime());
@@ -67,15 +67,15 @@ public class ReadRecipeController {
 
   private ResponseRecipeList generateRecipeListResponse(List<Recipe> resultRecipeList) {
     ResponseRecipeList response = new ResponseRecipeList();
-    List<PayloadRecipe> payloadRecipeList = new ArrayList<>();
+    List<PayloadResponseRecipe> payloadRecipeList = new ArrayList<>();
     mapResultToPayload(resultRecipeList, payloadRecipeList);
     response.setRecipes(payloadRecipeList);
     return response;
   }
   
-  private void mapResultToPayload(List<Recipe> recipeList, List<PayloadRecipe> responseRecipeList) {
+  private void mapResultToPayload(List<Recipe> recipeList, List<PayloadResponseRecipe> responseRecipeList) {
     for (Recipe recipe: recipeList) {
-      PayloadRecipe responseRecipe = new PayloadRecipe();
+      PayloadResponseRecipe responseRecipe = new PayloadResponseRecipe();
       responseRecipe.setId(recipe.getId());
       responseRecipe.setTitle(recipe.getTitle());
       responseRecipe.setMakingTime(recipe.getMakingTime());

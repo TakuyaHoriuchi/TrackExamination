@@ -19,6 +19,6 @@ public class ResponseRecipeList {
 
   /* レシピ. */
   @JsonProperty("recipes")
-  private List<PayloadRecipe> recipes;
+  private List<PayloadResponseRecipe> recipes;
 
 }

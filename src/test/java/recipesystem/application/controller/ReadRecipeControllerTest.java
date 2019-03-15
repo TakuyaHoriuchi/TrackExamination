@@ -15,13 +15,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import recipesystem.application.payload.PayloadRecipe;
+import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.application.payload.ResponseRecipeList;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.ReadRecipeService;
 
-
+/**
+ * {@link ReadRecipeController}のテスト.
+ */
 public class ReadRecipeControllerTest {
 
   @InjectMocks
@@ -48,7 +50,7 @@ public class ReadRecipeControllerTest {
     
     // assert
     assertThat(actual.getMessage(), is(equalTo(expectedMessage)));
-    PayloadRecipe actualRecipe = actual.getRecipe().get(0);
+    PayloadResponseRecipe actualRecipe = actual.getRecipe().get(0);
     assertThat(actualRecipe.getTitle(), is(equalTo(recipe.getTitle())));
     assertThat(actualRecipe.getMakingTime(), is(equalTo(recipe.getMakingTime())));
     assertThat(actualRecipe.getServes(), is(equalTo(recipe.getServes())));
@@ -68,14 +70,14 @@ public class ReadRecipeControllerTest {
     
     // assert
     assertThat(actual.getMessage(), is(nullValue()));
-    List<PayloadRecipe> recipes = actual.getRecipes();
+    List<PayloadResponseRecipe> recipes = actual.getRecipes();
     assertContents(recipes.get(0), Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス",        "1000");
     assertContents(recipes.get(1), Long.valueOf(2), "オムライス",   "30分", "2人", "玉ねぎ,卵,スパイス,醤油",    "700");
     assertContents(recipes.get(2), Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450");
     
   }
 
-  private void assertContents(PayloadRecipe firstPayloadRecipe, Long id, String title, String makingTime, String serves,
+  private void assertContents(PayloadResponseRecipe firstPayloadRecipe, Long id, String title, String makingTime, String serves,
       String ingredients, String cost) {
     assertThat(firstPayloadRecipe.getId(), is(id));
     assertThat(firstPayloadRecipe.getTitle(), is(title));
