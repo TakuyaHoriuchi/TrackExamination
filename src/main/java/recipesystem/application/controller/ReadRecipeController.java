@@ -2,6 +2,9 @@ package recipesystem.application.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +28,8 @@ import recipesystem.exception.RecipeNotFoundException;
 public class ReadRecipeController {
   @Autowired
   private ReadRecipeService service;
+  
+  private Log log = LogFactory.getLog(ReadRecipeController.class);
 
   /**
    * 指定したIDのレシピを取得するメソッド.
@@ -39,7 +44,9 @@ public class ReadRecipeController {
     try {
       readRecipe = service.read(id);
       response = generateRecipeResponse(readRecipe);
+      
     } catch (RecipeNotFoundException e) {
+      log.warn("id=" + id + " のレシピが見つかりませんでした。", e);
       response = new ResponseRecipe();
       response.setMessage("No Recipe found");
     }
@@ -58,6 +65,7 @@ public class ReadRecipeController {
       resultRecipeList = service.readAll();
 
     } catch (RecipeNotFoundException e) {
+      log.warn("レシピ情報取得に失敗しました。", e);
       ResponseRecipeList errorResponse = new ResponseRecipeList();
       errorResponse.setMessage("Unexpected error is occured.");
       return errorResponse;

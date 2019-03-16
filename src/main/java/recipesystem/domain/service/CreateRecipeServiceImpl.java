@@ -2,6 +2,8 @@ package recipesystem.domain.service;
 
 import static java.util.Objects.isNull;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,10 @@ import recipesystem.infrastructure.repository.RecipeRepository;
  */
 @Service
 public class CreateRecipeServiceImpl implements CreateRecipeService {
-
   @Autowired
   RecipeRepository recipeRepos;
+  
+  private Log log = LogFactory.getLog(CreateRecipeServiceImpl.class);
 
   /**
    * {@inheritDoc}.
@@ -26,13 +29,17 @@ public class CreateRecipeServiceImpl implements CreateRecipeService {
   @Override
   public Recipe create(Recipe requestRecipe) {
     if (isIncorrectRecipeInfo(requestRecipe)) {
+      log.info("レシピ作成に必要な情報が不足しています。");
       throw new FailToCreateRecipeException();
     }
+    
     RecipeEntity requestEntity = mapperEntityFromRequest(requestRecipe);
     RecipeEntity responseEntity;
     try {
       responseEntity = recipeRepos.save(requestEntity);
+      
     } catch (DataAccessException e) {
+      log.error("意図しないDBアクセスエラーが発生しました。", e);
       throw new FailToCreateRecipeException(e);
     }
     

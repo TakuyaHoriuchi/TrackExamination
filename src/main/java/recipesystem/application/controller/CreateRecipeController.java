@@ -2,6 +2,9 @@ package recipesystem.application.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +30,8 @@ public class CreateRecipeController {
   @Autowired
   CreateRecipeService service;
   
+  private Log log = LogFactory.getLog(CreateRecipeController.class);
+  
   /**
    * 指定したIDのレシピを作成するメソッド.
    * 
@@ -50,6 +55,7 @@ public class CreateRecipeController {
       response.setMessage("Recipe successfully created!");
       
     } catch (FailToCreateRecipeException e) {
+      log.warn("レシピの新規作成に失敗しました。", e);
       response.setMessage("Recipe creation failed!");
       response.setRequired("title, making_time, serves, ingredients, cost");
     }

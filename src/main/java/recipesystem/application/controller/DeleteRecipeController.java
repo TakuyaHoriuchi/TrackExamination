@@ -1,5 +1,7 @@
 package recipesystem.application.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +23,8 @@ public class DeleteRecipeController {
   @Autowired
   DeleteRecipeService service;
   
+  private Log log = LogFactory.getLog(DeleteRecipeController.class);
+  
   /**
    * 指定したIDのレシピを削除するメソッド.
    * @param id 削除対象レシピのID.
@@ -35,6 +39,7 @@ public class DeleteRecipeController {
       response.setMessage("Recipe successfully removed!");
       
     } catch (RecipeNotFoundException e) {
+      log.warn("レシピの削除に失敗しました。", e);
       response.setMessage("No Recipe found");
     }
     

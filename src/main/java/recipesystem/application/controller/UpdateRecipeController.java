@@ -1,6 +1,9 @@
 package recipesystem.application.controller;
 
 import java.util.ArrayList;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +28,8 @@ import recipesystem.exception.RecipeNotFoundException;
 public class UpdateRecipeController {
   @Autowired
   private UpdateRecipeService service;
+  
+  private Log log = LogFactory.getLog(UpdateRecipeController.class);
 
   /**
    * 指定したIDのレシピを更新するメソッド.
@@ -47,6 +52,7 @@ public class UpdateRecipeController {
       response = generateResponse(responsePayloadRecipe);
       
     } catch (RecipeNotFoundException e) {
+      log.warn("レシピの更新に失敗しました。", e);
       response = new ResponseRecipe();
       response.setMessage("No Recipe found");
     }

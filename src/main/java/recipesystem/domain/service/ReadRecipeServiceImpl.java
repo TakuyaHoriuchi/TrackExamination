@@ -3,6 +3,9 @@ package recipesystem.domain.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,8 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
 
   @Autowired
   RecipeRepository recipeRepos;
+  
+  private Log log = LogFactory.getLog(ReadRecipeServiceImpl.class);
 
   /**
    * {@inheritDoc}.
@@ -31,10 +36,12 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
       result = recipeRepos.findById(id);
 
     } catch (DataAccessException e) {
+      log.error("意図しないDBアクセスエラーが発生しました。", e);
       throw new RecipeNotFoundException(e);
     }
 
     if (!result.isPresent()) {
+      log.info("指定のIDのレシピが見つかりませんでした。");
       throw new RecipeNotFoundException();
     }
 
@@ -49,9 +56,12 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
     List<RecipeEntity> recipeList = null;
     try {
       recipeList = recipeRepos.findAll();
+      
     } catch (DataAccessException e) {
+      log.error("意図しないDBアクセスエラーが発生しました。", e);
       throw new RecipeNotFoundException(e);
     }
+    
     return mapperRecipeResponseListFromRecipeEntities(recipeList);
   }
 

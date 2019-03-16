@@ -1,6 +1,9 @@
 package recipesystem.domain.service;
 
 import java.util.Optional;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ public class UpdateRecipeServiceImpl implements UpdateRecipeService {
   @Autowired
   RecipeRepository recipeRepos;
 
+  private Log log = LogFactory.getLog(UpdateRecipeServiceImpl.class);
+  
   /**
    * {@inheritDoc}.
    */
@@ -37,10 +42,12 @@ public class UpdateRecipeServiceImpl implements UpdateRecipeService {
       readResult = recipeRepos.findById(id);
 
     } catch (DataAccessException e) {
+      log.error("指定IDのレシピを取得中に、意図しないDBアクセスエラーが発生しました。", e);
       throw new RecipeNotFoundException(e);
     }
 
     if (!readResult.isPresent()) {
+      log.info("指定IDのレシピが見つかりませんでした。");
       throw new RecipeNotFoundException();
     }
     return readResult;
@@ -55,6 +62,7 @@ public class UpdateRecipeServiceImpl implements UpdateRecipeService {
       result = recipeRepos.save(entity);
       
     } catch (DataAccessException e) {
+      log.error("レシピ更新処理中に、意図しないDBアクセスエラーが発生しました。", e);
       throw new RecipeNotFoundException(e);
     }
     return result;

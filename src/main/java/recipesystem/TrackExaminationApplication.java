@@ -18,6 +18,3 @@ public class TrackExaminationApplication {
   }
 
 }
-
-// TODO ERRORレベルのLOGの埋込
-// TODO INFOレベルのLOGの埋込
