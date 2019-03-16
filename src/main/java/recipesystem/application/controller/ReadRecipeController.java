@@ -15,6 +15,7 @@ import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.application.payload.ResponseRecipeList;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.ReadRecipeService;
+import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * レシピ情報を取得するクラス.
@@ -33,8 +34,16 @@ public class ReadRecipeController {
   @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
   public ResponseRecipe readRecipeFromId(@PathVariable("id") Integer id) {
-    Recipe readRecipe = service.read(id);
-    return generateRecipeResponse(readRecipe);
+    Recipe readRecipe = null;
+    ResponseRecipe response = null;
+    try {
+      readRecipe = service.read(id);
+      response = generateRecipeResponse(readRecipe);
+    } catch (RecipeNotFoundException e) {
+      response = new ResponseRecipe();
+      response.setMessage("No Recipe found");
+    }
+    return response;
   }
   
   /**

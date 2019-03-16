@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.application.payload.ResponseRecipeList;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.ReadRecipeService;
+import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * {@link ReadRecipeController}のテスト.
@@ -56,6 +58,23 @@ public class ReadRecipeControllerTest {
     assertThat(actualRecipe.getServes(), is(equalTo(recipe.getServes())));
     assertThat(actualRecipe.getIngredients(), is(equalTo(recipe.getIngredients())));
     assertThat(actualRecipe.getCost(), is(recipe.getCost().toString()));
+
+  }
+  
+  @Test
+  public void test_FailToReadRecipeFromId() {
+    // setup
+    doThrow(new RecipeNotFoundException()).when(service).read(100);
+    
+    // execute
+    ResponseRecipe actual = testTarget.readRecipeFromId(100);
+    
+    // expected
+    String expectedMessage = "No Recipe found";
+    
+    // assert
+    assertThat(actual.getMessage(), is(equalTo(expectedMessage)));
+    assertThat(actual.getRecipe(), is(nullValue()));
 
   }
 

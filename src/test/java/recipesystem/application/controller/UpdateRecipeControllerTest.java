@@ -2,7 +2,10 @@ package recipesystem.application.controller;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -10,12 +13,12 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.UpdateRecipeService;
+import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * {@link ReadRecipeController}のテスト.
@@ -56,6 +59,22 @@ public class UpdateRecipeControllerTest {
     assertThat(actualRecipe.getIngredients(), is(equalTo(payloadRecipe.getIngredients())));
     assertThat(actualRecipe.getCost(), is(payloadRecipe.getCost().toString()));
 
+  }
+  
+  @Test
+  public void test_FailToUpdateRecipe() {
+    // setup
+    doThrow(new RecipeNotFoundException()).when(service).update(any(), any());
+    
+    // execute
+    ResponseRecipe actual = testTarget.updateRecipe(100, new PayloadRequestRecipe());
+    
+    // expected
+    String expectedMessage = "No Recipe found";
+    
+    // assert
+    assertThat(actual.getMessage(), is(equalTo(expectedMessage)));
+    assertThat(actual.getRecipe(), is(nullValue()));
   }
 
   private Recipe createSuccessResponseRecipe() {

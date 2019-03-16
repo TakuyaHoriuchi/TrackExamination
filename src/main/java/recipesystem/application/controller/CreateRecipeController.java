@@ -18,7 +18,7 @@ import recipesystem.domain.service.CreateRecipeService;
 import recipesystem.exception.FailToCreateRecipeException;
 
 /**
- * レシピ情報を取得するクラス.
+ * レシピ情報を作成するクラス.
  */
 @RestController
 @RequestMapping(value = "recipes")
@@ -28,7 +28,9 @@ public class CreateRecipeController {
   CreateRecipeService service;
   
   /**
-   * 指定したIDのレシピを取得するメソッド.
+   * 指定したIDのレシピを作成するメソッド.
+   * 
+   * @param request 作成レシピの情報.
    * @return 処理結果内容.
    */
   @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -37,17 +39,21 @@ public class CreateRecipeController {
     Recipe requestRecipe = mapperRequestFromPayload(request);
     Recipe responseRecipe = null;
     ResponseRecipe response = new ResponseRecipe();
+    
     try {
       responseRecipe = service.create(requestRecipe);
+      
       PayloadResponseRecipe payloadResponseRecipe = mapperPayloadFromResponse(responseRecipe);
       List<PayloadResponseRecipe> recipe = new ArrayList<>();
       recipe.add(payloadResponseRecipe);
       response.setRecipe(recipe);
       response.setMessage("Recipe successfully created!");
+      
     } catch (FailToCreateRecipeException e) {
       response.setMessage("Recipe creation failed!");
       response.setRequired("title, making_time, serves, ingredients, cost");
     }
+    
     return response;
   }
 

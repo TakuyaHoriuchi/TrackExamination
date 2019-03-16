@@ -15,6 +15,7 @@ import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.UpdateRecipeService;
+import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * レシピ情報を更新するクラス.
@@ -36,9 +37,21 @@ public class UpdateRecipeController {
   public ResponseRecipe updateRecipe(@PathVariable("id") int id,
                                      @RequestBody PayloadRequestRecipe payloadRecipe) {
     Recipe requestRecipe = mapperRequestFromPayload(payloadRecipe);
-    Recipe responseRecipe = service.update(2, requestRecipe);
-    PayloadResponseRecipe responsePayloadRecipe = mapperPayloadFromResponse(responseRecipe);
-    return generateResponse(responsePayloadRecipe);
+    Recipe responseRecipe = null;
+    ResponseRecipe response = null;
+    
+    try {
+      responseRecipe = service.update(2, requestRecipe);
+      
+      PayloadResponseRecipe responsePayloadRecipe = mapperPayloadFromResponse(responseRecipe);
+      response = generateResponse(responsePayloadRecipe);
+      
+    } catch (RecipeNotFoundException e) {
+      response = new ResponseRecipe();
+      response.setMessage("No Recipe found");
+    }
+    
+    return response;
   }
 
   private ResponseRecipe generateResponse(PayloadResponseRecipe responsePayloadRecipe) {

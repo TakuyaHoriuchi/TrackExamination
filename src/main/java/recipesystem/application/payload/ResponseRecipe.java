@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * レシピのレスポンスクラス.
+ * 呼び出し元へ返却するレスポンスクラス.
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)

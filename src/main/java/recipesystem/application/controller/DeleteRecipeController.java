@@ -22,7 +22,7 @@ public class DeleteRecipeController {
   DeleteRecipeService service;
   
   /**
-   * 指定したIDのレシピを取得するメソッド.
+   * 指定したIDのレシピを削除するメソッド.
    * @param id 削除対象レシピのID.
    * @return 処理結果内容.
    */
