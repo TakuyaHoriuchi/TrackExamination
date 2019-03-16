@@ -1,12 +1,11 @@
 package recipesystem.domain.service;
 
-import org.springframework.stereotype.Service;
 import recipesystem.domain.model.Recipe;
 
 /**
  * {@link UpdateRecipeService}の実装クラス.
  */
-@Service
+//@Service
 public class UpdateRecipeServiceStub implements UpdateRecipeService {
 
   /**

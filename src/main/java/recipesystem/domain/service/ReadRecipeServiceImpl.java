@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+
 import recipesystem.domain.model.Recipe;
 import recipesystem.exception.RecipeNotFoundException;
 import recipesystem.infrastructure.model.RecipeEntity;
@@ -13,6 +15,7 @@ import recipesystem.infrastructure.repository.RecipeRepository;
 /**
  * {@link ReadRecipeService}の実装クラス.
  */
+@Service
 public class ReadRecipeServiceImpl implements ReadRecipeService {
 
   @Autowired

@@ -2,13 +2,13 @@ package recipesystem.domain.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
+
 import recipesystem.domain.model.Recipe;
 
 /**
  * {@link ReadRecipeService}の実装クラス.
  */
-@Service
+//@Service
 public class ReadRecipeServiceStub implements ReadRecipeService {
 
   /**

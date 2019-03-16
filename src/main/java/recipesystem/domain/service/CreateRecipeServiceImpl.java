@@ -4,6 +4,8 @@ import static java.util.Objects.isNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+
 import recipesystem.domain.model.Recipe;
 import recipesystem.exception.FailToCreateRecipeException;
 import recipesystem.infrastructure.model.RecipeEntity;
@@ -12,6 +14,7 @@ import recipesystem.infrastructure.repository.RecipeRepository;
 /**
  * {@link CreateRecipeService}の実装クラス.
  */
+@Service
 public class CreateRecipeServiceImpl implements CreateRecipeService {
 
   @Autowired

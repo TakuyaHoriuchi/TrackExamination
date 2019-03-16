@@ -20,6 +20,7 @@ public class TrackExaminationApplication {
 }
 
 // TODO DBをセットしてDEPENDENCYを注入
+// TODO 不要Stubを４つ削除
 // TODO ERRORレベルのLOGの埋込
 // TODO INFOレベルのLOGの埋込
 
