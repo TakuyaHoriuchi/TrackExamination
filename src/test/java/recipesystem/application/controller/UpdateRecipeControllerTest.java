@@ -35,7 +35,8 @@ public class UpdateRecipeControllerTest {
   @Test
   public void test_SuccessToUpdateRecipe() {
     // setup
-    PayloadRequestRecipe payloadRecipe = new PayloadRequestRecipe(null, "トマトスープレシピ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+    PayloadRequestRecipe payloadRecipe 
+          = new PayloadRequestRecipe(null, "トマトスープレシピ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
     Recipe requestRecipe = createSuccessRequestRecipe();
     Recipe responseRecipe = createSuccessResponseRecipe();
     when(service.update(2, requestRecipe)).thenReturn(responseRecipe);

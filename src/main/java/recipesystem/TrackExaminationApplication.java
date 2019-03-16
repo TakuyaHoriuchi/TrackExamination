@@ -13,7 +13,6 @@ public class TrackExaminationApplication {
 }
 
 // =============SERVICE===============
-// TODO UPDATEのテスト実装
 // TODO UPDATEの実装修正
 // TODO DELETEのテスト実装
 // TODO DELETEの実装修正

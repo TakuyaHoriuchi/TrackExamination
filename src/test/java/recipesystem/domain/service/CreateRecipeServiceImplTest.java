@@ -76,7 +76,7 @@ public class CreateRecipeServiceImplTest {
       testTarget.create(recipe);
       
       // assert
-      fail("正しくExceptionが投げられませんでした。");
+      fail("正しく例外が投げられませんでした。");
     } catch (FailToCreateRecipeException e) {
       assertThat(recipeRepository.count(), is(equalTo(2L)));
     } catch (Exception e) {

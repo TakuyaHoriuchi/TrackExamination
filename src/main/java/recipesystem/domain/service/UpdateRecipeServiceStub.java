@@ -14,7 +14,7 @@ public class UpdateRecipeServiceStub implements UpdateRecipeService {
    * {@inheritDoc}.
    */
   @Override
-  public Recipe update(int id, Recipe recipe) {
+  public Recipe update(Integer id, Recipe recipe) {
     recipe.setId((long) id);
     return recipe;
   }
