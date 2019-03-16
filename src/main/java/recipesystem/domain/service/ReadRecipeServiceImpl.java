@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 
 import recipesystem.domain.model.Recipe;
 import recipesystem.exception.RecipeNotFoundException;
@@ -23,12 +24,12 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
    * {@inheritDoc}.
    */
   @Override
-  public Recipe read(int id) {
+  public Recipe read(Integer id) {
     Optional<RecipeEntity> result = null;
     try {
       result = recipeRepos.findById(id);
 
-    } catch (IllegalArgumentException e) {
+    } catch (DataAccessException e) {
       throw new RecipeNotFoundException(e);
     }
 
@@ -44,11 +45,8 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
    */
   @Override
   public List<Recipe> readAll() {
-    List<Recipe> recipeList = new ArrayList<>();
-    recipeList.add(new Recipe(Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000));
-    recipeList.add(new Recipe(Long.valueOf(2), "オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700));
-    recipeList.add(new Recipe(Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450));
-    return recipeList;
+    List<RecipeEntity> recipeList = recipeRepos.findAll();
+    return mapperRecipeResponseListFromRecipeEntities(recipeList);
   }
 
   private Recipe mapperRecipeResponseFromResult(Optional<RecipeEntity> result) {
@@ -62,4 +60,17 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
     return response;
   }
 
+  private List<Recipe> mapperRecipeResponseListFromRecipeEntities(List<RecipeEntity> recipeList) {
+    List<Recipe> result = new ArrayList<>();
+    for (RecipeEntity recipe : recipeList) {
+      Recipe responseRecipe = new Recipe();
+      responseRecipe.setTitle(recipe.getTitle());
+      responseRecipe.setMakingTime(recipe.getMakingTime());
+      responseRecipe.setServes(recipe.getServes());
+      responseRecipe.setIngredients(recipe.getIngredients());
+      responseRecipe.setCost(recipe.getCost());
+      result.add(responseRecipe);
+    }
+    return result;
+  }
 }

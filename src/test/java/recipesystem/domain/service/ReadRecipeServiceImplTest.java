@@ -78,14 +78,33 @@ public class ReadRecipeServiceImplTest {
     // execute
     try {
       testTarget.read(100);
-      
       fail("例外を投げる事に失敗しました。");
       
     } catch (RecipeNotFoundException e) {
       assertTrue("意図した例外を投げることに成功しました。", true);
       
     } catch (Exception e) {
-      fail("意図しない例外が投げられました。");
+      fail("意図しない例外が投げられました。" + e.getMessage());
+    }
+  }
+  
+  @Test
+  public void test_FailToReadRecipeFromIdCausedByIdIsNull() {
+    // precheck
+    if (recipeRepository.count() != 3) {
+      fail("Tableの初期化に失敗しました。");
+    }
+    
+    // execute
+    try {
+      testTarget.read(null);
+      fail("例外を投げる事に失敗しました。");
+      
+    } catch (RecipeNotFoundException e) {
+      assertTrue("意図した例外を投げることに成功しました。", true);
+      
+    } catch (Exception e) {
+      fail("意図しない例外が投げられました。" + e.getMessage());
     }
   }
   

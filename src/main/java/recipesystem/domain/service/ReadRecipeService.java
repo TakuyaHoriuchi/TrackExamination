@@ -6,7 +6,7 @@ import recipesystem.domain.model.Recipe;
 
 public interface ReadRecipeService {
 
-  Recipe read(int i);
+  Recipe read(Integer i);
 
   List<Recipe> readAll();
 

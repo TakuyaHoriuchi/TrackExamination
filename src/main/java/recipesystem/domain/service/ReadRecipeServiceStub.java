@@ -17,7 +17,7 @@ public class ReadRecipeServiceStub implements ReadRecipeService {
    * {@inheritDoc}.
    */
   @Override
-  public Recipe read(int i) {
+  public Recipe read(Integer i) {
     return new Recipe(Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000);
   }
 

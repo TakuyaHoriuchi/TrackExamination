@@ -73,7 +73,8 @@ public class ReadRecipeController {
     return response;
   }
   
-  private void mapResultToPayload(List<Recipe> recipeList, List<PayloadResponseRecipe> responseRecipeList) {
+  private void mapResultToPayload(List<Recipe> recipeList,
+                                  List<PayloadResponseRecipe> responseRecipeList) {
     for (Recipe recipe: recipeList) {
       PayloadResponseRecipe responseRecipe = new PayloadResponseRecipe();
       responseRecipe.setId(recipe.getId());
