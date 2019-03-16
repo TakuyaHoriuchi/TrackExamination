@@ -6,14 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TrackExaminationApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TrackExaminationApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(TrackExaminationApplication.class, args);
+  }
 
 }
 
 // =============SERVICE===============
-// TODO CREATEの実装修正
 // TODO 1件Readのテスト実装
 // TODO 1件Readの実装修正
 // TODO 全件Readのテスト実装

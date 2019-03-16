@@ -59,8 +59,7 @@ public class CreateRecipeServiceImplTest {
     Recipe actual = testTarget.create(recipe);
     
     // assert
-    Recipe expected = createSuccessResponseRecipe();
-    assertThat(actual, is(samePropertyValuesAs(expected)));
+    assertThat(actual, is(samePropertyValuesAs(recipe)));
     assertThat(recipeRepository.count(), is(equalTo(3L)));
   }
   
@@ -87,21 +86,11 @@ public class CreateRecipeServiceImplTest {
   
   private Recipe createSuccessRecipe() {
     Recipe requestRecipe = new Recipe();
-    requestRecipe.setCost(450);
-    requestRecipe.setMakingTime("15分");
-    requestRecipe.setIngredients("玉ねぎ, トマト, スパイス, 水");
-    requestRecipe.setServes("5人");
     requestRecipe.setTitle("トマトスープ");
+    requestRecipe.setMakingTime("15分");
+    requestRecipe.setServes("5人");
+    requestRecipe.setIngredients("玉ねぎ, トマト, スパイス, 水");
+    requestRecipe.setCost(450);
     return requestRecipe;
-  }
-  
-  private Recipe createSuccessResponseRecipe() {
-    Recipe responseRecipe = new Recipe();
-    responseRecipe.setCost(450);
-    responseRecipe.setMakingTime("15分");
-    responseRecipe.setIngredients("玉ねぎ, トマト, スパイス, 水");
-    responseRecipe.setServes("5人");
-    responseRecipe.setTitle("トマトスープ");
-    return responseRecipe;
   }
 }

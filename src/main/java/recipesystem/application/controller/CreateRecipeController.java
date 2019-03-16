@@ -31,7 +31,6 @@ public class CreateRecipeController {
   
   /**
    * 指定したIDのレシピを取得するメソッド.
-   * @param id 取得対象レシピのID.
    * @return 処理結果内容.
    */
   @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
