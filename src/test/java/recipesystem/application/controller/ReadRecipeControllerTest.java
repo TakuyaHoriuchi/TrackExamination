@@ -71,14 +71,23 @@ public class ReadRecipeControllerTest {
     // assert
     assertThat(actual.getMessage(), is(nullValue()));
     List<PayloadResponseRecipe> recipes = actual.getRecipes();
-    assertContents(recipes.get(0), Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス",        "1000");
-    assertContents(recipes.get(1), Long.valueOf(2), "オムライス",   "30分", "2人", "玉ねぎ,卵,スパイス,醤油",    "700");
-    assertContents(recipes.get(2), Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450");
+    assertContents(
+        recipes.get(0), Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス",        "1000");
+    assertContents(
+        recipes.get(1), Long.valueOf(2), "オムライス",   "30分", "2人", "玉ねぎ,卵,スパイス,醤油",    "700");
+    assertContents(
+        recipes.get(2), Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450");
     
   }
 
-  private void assertContents(PayloadResponseRecipe firstPayloadRecipe, Long id, String title, String makingTime, String serves,
-      String ingredients, String cost) {
+  private void assertContents(PayloadResponseRecipe firstPayloadRecipe,
+                              Long id,
+                              String title,
+                              String makingTime,
+                              String serves,
+                              String ingredients,
+                              String cost) {
+    
     assertThat(firstPayloadRecipe.getId(), is(id));
     assertThat(firstPayloadRecipe.getTitle(), is(title));
     assertThat(firstPayloadRecipe.getMakingTime(), is(makingTime));

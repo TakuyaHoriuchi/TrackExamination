@@ -12,13 +12,7 @@ public class TrackExaminationApplication {
 
 }
 
-// =============SERVICE===============
-// TODO UPDATEの実装修正
-// TODO DELETEのテスト実装
-// TODO DELETEの実装修正
-//=============SERVICE===============
 // TODO DBをセットしてDEPENDENCYを注入
-// TODO FORMAT整理
 // TODO ERRORレベルのLOGの埋込
 // TODO 問題記載以外の異常系実装
 // TODO INFOレベルのLOGの埋込

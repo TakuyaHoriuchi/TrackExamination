@@ -1,7 +1,6 @@
 package recipesystem.domain.service;
 
 import org.springframework.stereotype.Service;
-
 import recipesystem.domain.model.Recipe;
 
 /**

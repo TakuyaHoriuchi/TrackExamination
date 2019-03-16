@@ -41,7 +41,8 @@ public class CreateRecipeControllerTest {
     when(service.create(requestRecipe)).thenReturn(responseRecipe);
     
     // execute
-    PayloadRequestRecipe request = new PayloadRequestRecipe(null, "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
+    PayloadRequestRecipe request 
+          = new PayloadRequestRecipe(null, "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450);
     ResponseRecipe actual = testTarget.createRecipe(request);
     
     // expected
