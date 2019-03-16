@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ペイロードレスポンス表示用のクラス.
+ * レシピ情報を返却する時の表示用クラス.
  */
 @Data
 @AllArgsConstructor

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * レシピの情報を集めたドメインクラス.
+ * レシピの情報を扱うドメインクラス.
  */
 @Data
 @AllArgsConstructor

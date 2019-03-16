@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Requestで送信されるRecipeクラス.
+ * RequestBodyから送信されるRecipe情報を格納するクラス.
  */
 @Data
 @AllArgsConstructor
