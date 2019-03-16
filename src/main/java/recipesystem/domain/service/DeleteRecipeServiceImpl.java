@@ -22,6 +22,7 @@ public class DeleteRecipeServiceImpl implements DeleteRecipeService {
   public void delete(Integer id) {
     try {
       recipeRepos.deleteById(id);
+      
     } catch (DataAccessException e) {
       throw new RecipeNotFoundException();
     }

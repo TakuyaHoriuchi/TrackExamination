@@ -53,6 +53,7 @@ public class ReadRecipeControllerTest {
     // assert
     assertThat(actual.getMessage(), is(equalTo(expectedMessage)));
     PayloadResponseRecipe actualRecipe = actual.getRecipe().get(0);
+    assertThat(actualRecipe.getId(), is(nullValue()));
     assertThat(actualRecipe.getTitle(), is(equalTo(recipe.getTitle())));
     assertThat(actualRecipe.getMakingTime(), is(equalTo(recipe.getMakingTime())));
     assertThat(actualRecipe.getServes(), is(equalTo(recipe.getServes())));

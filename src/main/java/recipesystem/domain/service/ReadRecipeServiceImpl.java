@@ -65,6 +65,7 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
     List<Recipe> result = new ArrayList<>();
     for (RecipeEntity recipe : recipeList) {
       Recipe responseRecipe = new Recipe();
+      responseRecipe.setId(Long.valueOf(recipe.getId()));
       responseRecipe.setTitle(recipe.getTitle());
       responseRecipe.setMakingTime(recipe.getMakingTime());
       responseRecipe.setServes(recipe.getServes());
