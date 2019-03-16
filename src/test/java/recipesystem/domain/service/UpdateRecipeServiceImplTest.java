@@ -106,7 +106,26 @@ public class UpdateRecipeServiceImplTest {
     assertThat(readEntity.getServes(), is(equalTo("2人")));
     assertThat(readEntity.getIngredients(), is(equalTo("玉ねぎ,卵,スパイス,醤油")));
     assertThat(readEntity.getCost(), is(equalTo(700)));
+  }
+  
+  @Test
+  public void test_FailToUpdateRecipeCausedByIdIsNull() {
+    // precheck
+    if (recipeRepository.count() != 3) {
+      fail("Tableの初期化に失敗しました。");
+    }
     
+    // execute
+    try {
+      testTarget.update(null, new Recipe());
+      fail("例外を投げる事に失敗しました。");
+      
+    } catch (RecipeNotFoundException e) {
+      assertTrue("意図した例外を投げることに成功しました。", true);
+      
+    } catch (Exception e) {
+      fail("意図しない例外が投げられました。" + e.getMessage());
+    }
   }
 
   private Recipe createRequestRecipe() {

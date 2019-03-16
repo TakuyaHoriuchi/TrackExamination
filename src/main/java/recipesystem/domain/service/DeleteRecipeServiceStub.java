@@ -15,7 +15,9 @@ public class DeleteRecipeServiceStub implements DeleteRecipeService {
    */
   @Override
   public void delete(int i) {
-    if(i < 5) return;
+    if (i < 5) {
+      return;
+    }
     throw new RecipeNotFoundException();
   }
 
