@@ -25,6 +25,7 @@ public class CreateRecipeServiceStub implements CreateRecipeService {
         || isNull(requestRecipe.getCost())) {
       throw new FailToCreateRecipeException();
     }
+    
     return requestRecipe;
   }
 
