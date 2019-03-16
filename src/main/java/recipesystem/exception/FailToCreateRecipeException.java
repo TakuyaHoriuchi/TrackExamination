@@ -7,4 +7,12 @@ public class FailToCreateRecipeException extends RuntimeException {
    */
   private static final long serialVersionUID = 4164016421475751965L;
 
+  public FailToCreateRecipeException(Throwable cause) {
+    super(cause);
+  }
+  
+  public FailToCreateRecipeException() {
+    super();
+  }
+  
 }

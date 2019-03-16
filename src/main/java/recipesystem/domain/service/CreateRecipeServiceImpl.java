@@ -2,6 +2,9 @@ package recipesystem.domain.service;
 
 import static java.util.Objects.isNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+
 import recipesystem.domain.model.Recipe;
 import recipesystem.exception.FailToCreateRecipeException;
 import recipesystem.infrastructure.model.RecipeEntity;
@@ -12,6 +15,7 @@ import recipesystem.infrastructure.repository.RecipeRepository;
  */
 public class CreateRecipeServiceImpl implements CreateRecipeService {
 
+  @Autowired
   RecipeRepository recipeRepos;
 
   /**
@@ -23,7 +27,12 @@ public class CreateRecipeServiceImpl implements CreateRecipeService {
       throw new FailToCreateRecipeException();
     }
     RecipeEntity requestEntity = mapperEntityFromRequest(requestRecipe);
-    RecipeEntity responseEntity = recipeRepos.save(requestEntity);
+    RecipeEntity responseEntity;
+    try {
+      responseEntity = recipeRepos.save(requestEntity);
+    } catch (DataAccessException e) {
+      throw new FailToCreateRecipeException(e);
+    }
     
     return mapperResponseFromEntity(responseEntity);
   }

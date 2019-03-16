@@ -76,7 +76,7 @@ public class CreateRecipeServiceImplTest {
       testTarget.create(recipe);
       
       // assert
-      fail("レシピを作成するための情報が不足しています。");
+      fail("正しくExceptionが投げられませんでした。");
     } catch (FailToCreateRecipeException e) {
       assertThat(recipeRepository.count(), is(equalTo(2L)));
     } catch (Exception e) {
