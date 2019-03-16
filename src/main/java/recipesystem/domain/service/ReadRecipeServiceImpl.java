@@ -46,7 +46,12 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
    */
   @Override
   public List<Recipe> readAll() {
-    List<RecipeEntity> recipeList = recipeRepos.findAll();
+    List<RecipeEntity> recipeList = null;
+    try {
+      recipeList = recipeRepos.findAll();
+    } catch (DataAccessException e) {
+      throw new RecipeNotFoundException(e);
+    }
     return mapperRecipeResponseListFromRecipeEntities(recipeList);
   }
 

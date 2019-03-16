@@ -32,7 +32,6 @@ public class DeleteRecipeController {
     ResponseRecipe response = new ResponseRecipe();
     try {
       service.delete(id);
-      
       response.setMessage("Recipe successfully removed!");
       
     } catch (RecipeNotFoundException e) {

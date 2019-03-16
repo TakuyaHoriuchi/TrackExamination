@@ -13,6 +13,7 @@ public interface UpdateRecipeService {
    * @param id 更新対象のレシピID.
    * @param recipe 更新情報.
    * @return 更新されたレシピ情報.
+   * @throws recipesystem.exception.RecipeNotFoundException レシピが取得出来ない場合や更新処理に失敗した場合に発生.
    */
   Recipe update(Integer id, Recipe recipe);
 

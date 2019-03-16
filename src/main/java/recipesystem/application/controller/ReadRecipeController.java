@@ -53,7 +53,16 @@ public class ReadRecipeController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
   public ResponseRecipeList readRecipe() {
-    List<Recipe> resultRecipeList = service.readAll();
+    List<Recipe> resultRecipeList;
+    try {
+      resultRecipeList = service.readAll();
+
+    } catch (RecipeNotFoundException e) {
+      ResponseRecipeList errorResponse = new ResponseRecipeList();
+      errorResponse.setMessage("Unexpected error is occured.");
+      return errorResponse;
+    }
+    
     return generateRecipeListResponse(resultRecipeList);
   }
   

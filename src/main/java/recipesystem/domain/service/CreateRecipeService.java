@@ -12,6 +12,7 @@ public interface CreateRecipeService {
    * 
    * @param requestRecipe 新規作成対象のレシピ情報.
    * @return 作成されたレシピ情報.
+   * @throws recipesystem.exception.FailToCreateRecipeException 新規作成出来なかった場合に発生.
    */
   Recipe create(Recipe requestRecipe);
 

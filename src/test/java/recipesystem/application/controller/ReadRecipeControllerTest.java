@@ -99,6 +99,23 @@ public class ReadRecipeControllerTest {
         recipes.get(2), Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", "450");
     
   }
+  
+  @Test
+  public void test_FailToReadAllRecipe() {
+    // setup
+    doThrow(new RecipeNotFoundException()).when(service).readAll();
+    
+    // execute
+    ResponseRecipeList actual = testTarget.readRecipe();
+    
+    // expected
+    String expectedErrorMessage = "Unexpected error is occured.";
+    
+    // assert
+    assertThat(actual.getMessage(), is(equalTo(expectedErrorMessage)));
+    assertThat(actual.getRecipes(), is(nullValue()));
+
+  }
 
   private void assertContents(PayloadResponseRecipe firstPayloadRecipe,
                               Long id,

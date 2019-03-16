@@ -34,8 +34,8 @@ public class UpdateRecipeController {
    */
   @PatchMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
-  public ResponseRecipe updateRecipe(@PathVariable("id") Integer id,
-                                     @RequestBody PayloadRequestRecipe payloadRecipe) {
+  public ResponseRecipe updateRecipe(
+      @PathVariable("id") Integer id, @RequestBody PayloadRequestRecipe payloadRecipe) {
     Recipe requestRecipe = mapperRequestFromPayload(payloadRecipe);
     Recipe responseRecipe = null;
     ResponseRecipe response = null;
