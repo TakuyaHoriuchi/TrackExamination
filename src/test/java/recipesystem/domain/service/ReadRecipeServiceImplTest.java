@@ -89,7 +89,6 @@ public class ReadRecipeServiceImplTest {
   
   private Recipe createExpectedRecipe() {
     Recipe recipe = new Recipe();
-    recipe.setId(Long.valueOf(1));
     recipe.setTitle("チキンカレー");
     recipe.setMakingTime("45分");
     recipe.setServes("4人");

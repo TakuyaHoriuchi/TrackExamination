@@ -6,13 +6,20 @@ public class FailToCreateRecipeException extends RuntimeException {
    * 情報不足でレシピの作成に失敗した時に発生するException.
    */
   private static final long serialVersionUID = 4164016421475751965L;
-
-  public FailToCreateRecipeException(Throwable cause) {
-    super(cause);
-  }
   
+  /**
+   * 新しい例外を構築.
+   */
   public FailToCreateRecipeException() {
     super();
   }
   
+  /**
+   * 指定された原因を使用して新しい例外を構築.
+   * 
+   * @param cause 原因
+   */
+  public FailToCreateRecipeException(Throwable cause) {
+    super(cause);
+  }
 }
