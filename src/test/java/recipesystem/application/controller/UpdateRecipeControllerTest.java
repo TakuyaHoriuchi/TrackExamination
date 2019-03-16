@@ -16,9 +16,9 @@ import org.mockito.MockitoAnnotations;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.UpdateRecipeService;
-import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * {@link ReadRecipeController}のテスト.

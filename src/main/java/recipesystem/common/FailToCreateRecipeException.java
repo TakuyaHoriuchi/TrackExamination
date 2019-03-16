@@ -1,4 +1,4 @@
-package recipesystem.exception;
+package recipesystem.common;
 
 /**
  * 情報不足でレシピの作成に失敗した時に発生するException.

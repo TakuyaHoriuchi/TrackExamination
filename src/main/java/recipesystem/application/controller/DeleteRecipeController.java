@@ -1,5 +1,9 @@
 package recipesystem.application.controller;
 
+import static recipesystem.common.Constants.DELETE_SUCCESS;
+import static recipesystem.common.Constants.LOG_DELETE_FAIL;
+import static recipesystem.common.Constants.NOT_FOUND_RECIPE;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.service.DeleteRecipeService;
-import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * レシピを削除するクラス.
@@ -20,6 +24,8 @@ import recipesystem.exception.RecipeNotFoundException;
 @RestController
 @RequestMapping(value = "recipes")
 public class DeleteRecipeController {
+  
+
   @Autowired
   DeleteRecipeService service;
   
@@ -36,11 +42,11 @@ public class DeleteRecipeController {
     ResponseRecipe response = new ResponseRecipe();
     try {
       service.delete(id);
-      response.setMessage("Recipe successfully removed!");
+      response.setMessage(DELETE_SUCCESS);
       
     } catch (RecipeNotFoundException e) {
-      log.warn("レシピの削除に失敗しました。", e);
-      response.setMessage("No Recipe found");
+      log.warn(LOG_DELETE_FAIL, e);
+      response.setMessage(NOT_FOUND_RECIPE);
     }
     
     return response;

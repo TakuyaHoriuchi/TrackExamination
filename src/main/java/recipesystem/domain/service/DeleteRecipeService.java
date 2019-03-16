@@ -9,7 +9,7 @@ public interface DeleteRecipeService {
    * 対象のIDのレシピが存在すれば一覧から削除する.
    * 
    * @param id 削除対象のレシピID.
-   * @throws recipesystem.exception.RecipeNotFoundException レシピ削除に失敗した場合発生.
+   * @throws recipesystem.common.RecipeNotFoundException レシピ削除に失敗した場合発生.
    */
   void delete(Integer id);
 

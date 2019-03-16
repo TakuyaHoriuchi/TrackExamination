@@ -18,8 +18,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.model.Recipe;
-import recipesystem.exception.RecipeNotFoundException;
 import recipesystem.infrastructure.model.RecipeEntity;
 import recipesystem.infrastructure.repository.RecipeRepository;
 

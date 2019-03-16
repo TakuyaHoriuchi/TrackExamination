@@ -1,7 +1,10 @@
 package recipesystem.application.controller;
 
-import java.util.ArrayList;
+import static recipesystem.common.Constants.LOG_UPDATE_FAIL;
+import static recipesystem.common.Constants.NOT_FOUND_RECIPE;
+import static recipesystem.common.Constants.UPDATE_SUCCESS;
 
+import java.util.ArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.UpdateRecipeService;
-import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * レシピ情報を更新するクラス.
@@ -52,9 +55,9 @@ public class UpdateRecipeController {
       response = generateResponse(responsePayloadRecipe);
       
     } catch (RecipeNotFoundException e) {
-      log.warn("レシピの更新に失敗しました。", e);
+      log.warn(LOG_UPDATE_FAIL, e);
       response = new ResponseRecipe();
-      response.setMessage("No Recipe found");
+      response.setMessage(NOT_FOUND_RECIPE);
     }
     
     return response;
@@ -62,7 +65,7 @@ public class UpdateRecipeController {
 
   private ResponseRecipe generateResponse(PayloadResponseRecipe responsePayloadRecipe) {
     ResponseRecipe response = new ResponseRecipe();
-    response.setMessage("Recipe successfully updated!");
+    response.setMessage(UPDATE_SUCCESS);
     response.setRecipe(new ArrayList<>());
     response.getRecipe().add(responsePayloadRecipe);
     return response;

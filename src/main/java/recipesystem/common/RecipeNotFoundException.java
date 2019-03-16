@@ -1,4 +1,4 @@
-package recipesystem.exception;
+package recipesystem.common;
 
 /**
  * 対象のレシピが見つからない時に発生するException.

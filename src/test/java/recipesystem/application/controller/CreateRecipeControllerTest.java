@@ -15,9 +15,9 @@ import org.mockito.MockitoAnnotations;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.common.FailToCreateRecipeException;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.CreateRecipeService;
-import recipesystem.exception.FailToCreateRecipeException;
 
 /**
  * {@link CreateRecipeController}のテスト.

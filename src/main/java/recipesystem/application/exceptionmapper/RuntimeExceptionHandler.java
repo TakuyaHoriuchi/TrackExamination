@@ -1,8 +1,10 @@
 package recipesystem.application.exceptionmapper;
 
+import static recipesystem.common.Constants.LOG_UNEXPECTED_ERROR;
+import static recipesystem.common.Constants.UNEXPECTED_ERROR;
+
 import java.util.Collections;
 import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
@@ -27,8 +29,8 @@ public class RuntimeExceptionHandler {
   @ExceptionHandler(RuntimeException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public Map<String, String> handleException(RuntimeException e) {
-    log.error("意図しないシステムエラーが発生しました。", e);
+    log.error(LOG_UNEXPECTED_ERROR, e);
     return Collections.singletonMap(
-        "message", "システムエラーが発生しました.");
+        "message", UNEXPECTED_ERROR);
   }
 }

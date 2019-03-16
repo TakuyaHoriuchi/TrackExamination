@@ -13,7 +13,7 @@ public interface ReadRecipeService {
    * 
    * @param id 取得対象のレシピID.
    * @return 取得したレシピ情報.
-   * @throws recipesystem.exception.RecipeNotFoundException レシピ情報が取得出来ない場合に発生.
+   * @throws recipesystem.common.RecipeNotFoundException レシピ情報が取得出来ない場合に発生.
    */
   Recipe read(Integer id);
 
@@ -21,7 +21,7 @@ public interface ReadRecipeService {
    * 登録されているレシピ情報全てを取得する.
    * 
    * @return 登録されている全レシピ情報.
-   * @throws recipesystem.exception.RecipeNotFoundException レシピ情報が取得出来ない場合に発生.
+   * @throws recipesystem.common.RecipeNotFoundException レシピ情報が取得出来ない場合に発生.
    */
   List<Recipe> readAll();
 

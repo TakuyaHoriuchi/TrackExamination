@@ -1,15 +1,17 @@
 package recipesystem.domain.service;
 
-import java.util.Optional;
+import static recipesystem.common.Constants.LOG_DB_ACCESS_ERROR_AT_UPDATE_GETTING_RECIPE;
+import static recipesystem.common.Constants.LOG_DB_ACCESS_ERROR_AT_UPDATE_UPDATING_RECIPE;
+import static recipesystem.common.Constants.LOG_RECIPE_IS_NOT_FOUND_AT_ID;
 
+import java.util.Optional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.model.Recipe;
-import recipesystem.exception.RecipeNotFoundException;
 import recipesystem.infrastructure.model.RecipeEntity;
 import recipesystem.infrastructure.repository.RecipeRepository;
 
@@ -42,12 +44,12 @@ public class UpdateRecipeServiceImpl implements UpdateRecipeService {
       readResult = recipeRepos.findById(id);
 
     } catch (DataAccessException e) {
-      log.error("指定IDのレシピを取得中に、意図しないDBアクセスエラーが発生しました。", e);
+      log.error(LOG_DB_ACCESS_ERROR_AT_UPDATE_GETTING_RECIPE, e);
       throw new RecipeNotFoundException(e);
     }
 
     if (!readResult.isPresent()) {
-      log.info("指定IDのレシピが見つかりませんでした。");
+      log.info(LOG_RECIPE_IS_NOT_FOUND_AT_ID);
       throw new RecipeNotFoundException();
     }
     return readResult;
@@ -62,7 +64,7 @@ public class UpdateRecipeServiceImpl implements UpdateRecipeService {
       result = recipeRepos.save(entity);
       
     } catch (DataAccessException e) {
-      log.error("レシピ更新処理中に、意図しないDBアクセスエラーが発生しました。", e);
+      log.error(LOG_DB_ACCESS_ERROR_AT_UPDATE_UPDATING_RECIPE, e);
       throw new RecipeNotFoundException(e);
     }
     return result;

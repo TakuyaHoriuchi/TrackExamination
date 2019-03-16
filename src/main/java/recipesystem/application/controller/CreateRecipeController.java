@@ -1,8 +1,12 @@
 package recipesystem.application.controller;
 
+import static recipesystem.common.Constants.CREATE_FAILED;
+import static recipesystem.common.Constants.CREATE_REQUIRED;
+import static recipesystem.common.Constants.CREATE_SUCCESS;
+import static recipesystem.common.Constants.LOG_CREATE_FAILED;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import recipesystem.application.payload.PayloadRequestRecipe;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
+import recipesystem.common.FailToCreateRecipeException;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.CreateRecipeService;
-import recipesystem.exception.FailToCreateRecipeException;
 
 /**
  * レシピ情報を作成するクラス.
@@ -52,12 +56,12 @@ public class CreateRecipeController {
       List<PayloadResponseRecipe> recipe = new ArrayList<>();
       recipe.add(payloadResponseRecipe);
       response.setRecipe(recipe);
-      response.setMessage("Recipe successfully created!");
+      response.setMessage(CREATE_SUCCESS);
       
     } catch (FailToCreateRecipeException e) {
-      log.warn("レシピの新規作成に失敗しました。", e);
-      response.setMessage("Recipe creation failed!");
-      response.setRequired("title, making_time, serves, ingredients, cost");
+      log.warn(LOG_CREATE_FAILED, e);
+      response.setMessage(CREATE_FAILED);
+      response.setRequired(CREATE_REQUIRED);
     }
     
     return response;

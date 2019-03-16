@@ -1,8 +1,13 @@
 package recipesystem.application.controller;
 
+import static recipesystem.common.Constants.LOG_READALL_FAIL;
+import static recipesystem.common.Constants.LOG_RECIPE_IS_NOT_FOUND_AT_ID;
+import static recipesystem.common.Constants.NOT_FOUND_RECIPE;
+import static recipesystem.common.Constants.READ_SUCCESS_BY_ID;
+import static recipesystem.common.Constants.UNEXPECTED_ERROR_IS_OCCURED;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import recipesystem.application.payload.PayloadResponseRecipe;
 import recipesystem.application.payload.ResponseRecipe;
 import recipesystem.application.payload.ResponseRecipeList;
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.model.Recipe;
 import recipesystem.domain.service.ReadRecipeService;
-import recipesystem.exception.RecipeNotFoundException;
 
 /**
  * レシピ情報を取得するクラス.
@@ -46,9 +51,9 @@ public class ReadRecipeController {
       response = generateRecipeResponse(readRecipe);
       
     } catch (RecipeNotFoundException e) {
-      log.warn("id=" + id + " のレシピが見つかりませんでした。", e);
+      log.warn(LOG_RECIPE_IS_NOT_FOUND_AT_ID, e);
       response = new ResponseRecipe();
-      response.setMessage("No Recipe found");
+      response.setMessage(NOT_FOUND_RECIPE);
     }
     return response;
   }
@@ -65,9 +70,9 @@ public class ReadRecipeController {
       resultRecipeList = service.readAll();
 
     } catch (RecipeNotFoundException e) {
-      log.warn("レシピ情報取得に失敗しました。", e);
+      log.warn(LOG_READALL_FAIL, e);
       ResponseRecipeList errorResponse = new ResponseRecipeList();
-      errorResponse.setMessage("Unexpected error is occured.");
+      errorResponse.setMessage(UNEXPECTED_ERROR_IS_OCCURED);
       return errorResponse;
     }
     
@@ -76,7 +81,7 @@ public class ReadRecipeController {
   
   private ResponseRecipe generateRecipeResponse(Recipe readRecipe) {
     ResponseRecipe response = new ResponseRecipe();
-    response.setMessage("Recipe details by id");
+    response.setMessage(READ_SUCCESS_BY_ID);
     List<PayloadResponseRecipe> recipeList = new ArrayList<>();
     PayloadResponseRecipe responseRecipe = new PayloadResponseRecipe();
     recipeList.add(responseRecipe);

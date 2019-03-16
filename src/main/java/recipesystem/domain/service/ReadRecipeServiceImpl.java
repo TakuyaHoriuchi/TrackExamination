@@ -1,17 +1,18 @@
 package recipesystem.domain.service;
 
+import static recipesystem.common.Constants.LOG_RECIPE_IS_NOT_FOUND_AT_ID;
+import static recipesystem.common.Constants.LOG_UNEXPECTED_DB_ACCESS_ERROR;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
+import recipesystem.common.RecipeNotFoundException;
 import recipesystem.domain.model.Recipe;
-import recipesystem.exception.RecipeNotFoundException;
 import recipesystem.infrastructure.model.RecipeEntity;
 import recipesystem.infrastructure.repository.RecipeRepository;
 
@@ -36,12 +37,12 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
       result = recipeRepos.findById(id);
 
     } catch (DataAccessException e) {
-      log.error("意図しないDBアクセスエラーが発生しました。", e);
+      log.error(LOG_UNEXPECTED_DB_ACCESS_ERROR, e);
       throw new RecipeNotFoundException(e);
     }
 
     if (!result.isPresent()) {
-      log.info("指定のIDのレシピが見つかりませんでした。");
+      log.info(LOG_RECIPE_IS_NOT_FOUND_AT_ID);
       throw new RecipeNotFoundException();
     }
 
@@ -58,7 +59,7 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
       recipeList = recipeRepos.findAll();
       
     } catch (DataAccessException e) {
-      log.error("意図しないDBアクセスエラーが発生しました。", e);
+      log.error(LOG_UNEXPECTED_DB_ACCESS_ERROR, e);
       throw new RecipeNotFoundException(e);
     }
     
