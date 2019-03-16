@@ -94,4 +94,27 @@ public class DeleteRecipeServiceImplTest {
     // assert
     assertThat(recipeRepository.count(), is(equalTo(3L)));
   }
+  
+  @Test
+  public void test_FailToDeleteRecipeCausedByIdIsNull() {
+    // precheck
+    if (recipeRepository.count() != 3) {
+      fail("Tableの初期化に失敗しました。");
+    }
+
+    // execute
+    try {
+      testTarget.delete(null);
+      fail("正しく例外が投げられませんでした。");
+
+    } catch (RecipeNotFoundException e) {
+      assertTrue("意図した例外を投げることに成功しました。", true);
+
+    } catch (Exception e) {
+      fail("意図しない例外が投げられました。" + e.getMessage());
+    }
+
+    // assert
+    assertThat(recipeRepository.count(), is(equalTo(3L)));
+  }
 }

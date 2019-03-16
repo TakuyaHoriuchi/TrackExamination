@@ -14,7 +14,7 @@ public class DeleteRecipeServiceStub implements DeleteRecipeService {
    * {@inheritDoc}.
    */
   @Override
-  public void delete(int i) {
+  public void delete(Integer i) {
     if (i < 5) {
       return;
     }
