@@ -1,5 +1,6 @@
 package recipesystem.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,15 +27,15 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
     Optional<RecipeEntity> result = null;
     try {
       result = recipeRepos.findById(id);
-      
+
     } catch (IllegalArgumentException e) {
       throw new RecipeNotFoundException(e);
     }
-    
+
     if (!result.isPresent()) {
       throw new RecipeNotFoundException();
     }
-    
+
     return mapperRecipeResponseFromResult(result);
   }
 
@@ -43,9 +44,13 @@ public class ReadRecipeServiceImpl implements ReadRecipeService {
    */
   @Override
   public List<Recipe> readAll() {
-    return null;
+    List<Recipe> recipeList = new ArrayList<>();
+    recipeList.add(new Recipe(Long.valueOf(1), "チキンカレー", "45分", "4人", "玉ねぎ,肉,スパイス", 1000));
+    recipeList.add(new Recipe(Long.valueOf(2), "オムライス", "30分", "2人", "玉ねぎ,卵,スパイス,醤油", 700));
+    recipeList.add(new Recipe(Long.valueOf(3), "トマトスープ", "15分", "5人", "玉ねぎ, トマト, スパイス, 水", 450));
+    return recipeList;
   }
-  
+
   private Recipe mapperRecipeResponseFromResult(Optional<RecipeEntity> result) {
     RecipeEntity recipeEntity = result.get();
     Recipe response = new Recipe();

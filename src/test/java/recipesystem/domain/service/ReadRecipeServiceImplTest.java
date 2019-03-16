@@ -6,6 +6,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,7 +87,21 @@ public class ReadRecipeServiceImplTest {
     } catch (Exception e) {
       fail("意図しない例外が投げられました。");
     }
+  }
+  
+  @Test
+  public void test_SuccessToReadAllRecipes() {
+    // precheck
+    if (recipeRepository.count() != 3) {
+      fail("Tableの初期化に失敗しました。");
+    }
     
+    // execute
+    List<Recipe> actual = testTarget.readAll();
+    
+    // assert
+    List<Recipe> expected = createAllRecipes();
+    assertThat(actual, is(samePropertyValuesAs(expected)));
   }
   
   private Recipe createExpectedRecipe() {
@@ -95,6 +112,39 @@ public class ReadRecipeServiceImplTest {
     recipe.setIngredients("玉ねぎ,肉,スパイス");
     recipe.setCost(1000);
     return recipe;
+  }
+  
+  private List<Recipe> createAllRecipes() {
+    Recipe firstRecipe = new Recipe();
+    firstRecipe.setId(Long.valueOf(1));
+    firstRecipe.setTitle("チキンカレー");
+    firstRecipe.setMakingTime("45分");
+    firstRecipe.setServes("4人");
+    firstRecipe.setIngredients("玉ねぎ,肉,スパイス");
+    firstRecipe.setCost(1000);
+    
+    Recipe secondRecipe = new Recipe();
+    secondRecipe.setId(Long.valueOf(2));
+    secondRecipe.setTitle("オムライス");
+    secondRecipe.setMakingTime("30分");
+    secondRecipe.setServes("2人");
+    secondRecipe.setIngredients("玉ねぎ,卵,スパイス,醤油");
+    secondRecipe.setCost(700);
+    
+    Recipe thirdRecipe = new Recipe();
+    thirdRecipe.setId(Long.valueOf(3));
+    thirdRecipe.setTitle("トマトスープ");
+    thirdRecipe.setMakingTime("15分");
+    thirdRecipe.setServes("5人");
+    thirdRecipe.setIngredients("玉ねぎ, トマト, スパイス, 水");
+    thirdRecipe.setCost(450);
+    
+    List<Recipe> recipes = new ArrayList<>();
+    recipes.add(firstRecipe);
+    recipes.add(secondRecipe);
+    recipes.add(thirdRecipe);
+    
+    return recipes;
   }
   
 }
